@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">AlarmClockBasedOnWeather</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="time">Time</string>
+    <string name="of_alarms"># of Alarms</string>
+    <string name="temp">temp</string>
+    <string name="home">Home</string>
+    <string name="sound">Sound</string>
+    <string name="alarm">Alarm</string>
+    <string name="image">image</string>
+    <string name="tone">Tone</string>
+</resources>
