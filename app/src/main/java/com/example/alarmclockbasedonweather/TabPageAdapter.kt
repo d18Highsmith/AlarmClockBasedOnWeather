@@ -1,10 +1,9 @@
 package com.example.alarmclockbasedonweather
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class TabPageAdapter(activity: FragmentActivity, private val tabCount: Int) : FragmentStateAdapter(activity)
+class TabPageAdapter(activity: MainActivity, private val tabCount: Int) : FragmentStateAdapter(activity)
 {
     override fun getItemCount(): Int = tabCount
 
@@ -17,6 +16,6 @@ class TabPageAdapter(activity: FragmentActivity, private val tabCount: Int) : Fr
             2->{AlarmFragment()}
             else->HomeFragment()
         }
-    }
+}
 
 }

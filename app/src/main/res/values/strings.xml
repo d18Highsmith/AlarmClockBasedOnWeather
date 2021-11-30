@@ -11,4 +11,10 @@
     <string name="alarm">Alarm</string>
     <string name="image">image</string>
     <string name="tone">Tone</string>
+    <string name="enter_time">Enter Time</string>
+    <string name="am_or_pm">Am or Pm</string>
+    <string name="none">none</string>
+    <string name="tempurature">Tempurature</string>
+    <string name="weather">Weather</string>
+    <string name="temperature">temperature</string>
 </resources>

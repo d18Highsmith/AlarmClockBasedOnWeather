@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TempFragment">
+
+    <RelativeLayout
+        android:id="@+id/relative_Layout_Temp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="250dp"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/noneText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="How long for Alarm delay" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="194dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="106dp"
+            android:layout_marginEnd="110dp"
+            android:layout_marginBottom="38dp"
+            android:text="Add Alarm Condition" />
+
+        <EditText
+            android:id="@+id/textView"
+            android:layout_width="165dp"
+            android:layout_height="46dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="124dp"
+            android:layout_marginEnd="122dp"
+            android:layout_marginBottom="176dp"
+            android:text="Minimum temp to delay temp" />
+
+    </RelativeLayout>
+
+</FrameLayout>
