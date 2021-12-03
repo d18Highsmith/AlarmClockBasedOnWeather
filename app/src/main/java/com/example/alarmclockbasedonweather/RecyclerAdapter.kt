@@ -1,5 +1,6 @@
 package com.example.alarmclockbasedonweather
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.media.MediaPlayer
 import android.provider.MediaStore
@@ -11,6 +12,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerAdapter(val myList: ArrayList<Alarm>, var context: Context): RecyclerView.Adapter<CustomViewHolder>() {
+
+    var myMediaPlayer: MediaPlayer? = null
 
 
     override fun getItemCount(): Int {
@@ -29,14 +32,15 @@ class RecyclerAdapter(val myList: ArrayList<Alarm>, var context: Context): Recyc
         holder.textView.text = currentAlarm.name
         holder.imageView.setImageResource(currentAlarm.image)
 
+
         holder.view.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                var myMediaPlayer = MediaPlayer.create(context, currentAlarm.sound)
-                myMediaPlayer.start()
+                    override fun onClick(p0: View?) {
+                        myMediaPlayer?.stop()
+                         myMediaPlayer = MediaPlayer.create(context, currentAlarm.sound)
+                        myMediaPlayer?.start()
             }
         })
     }
-
 }
 
 class CustomViewHolder(val view: View): RecyclerView.ViewHolder(view) {

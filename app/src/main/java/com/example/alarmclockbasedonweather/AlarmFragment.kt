@@ -21,6 +21,14 @@ class AlarmFragment : Fragment() {
         setUpTabBar()
     }
 
+//     ` private void addFragment(View view) {
+//        tabLayout = view.findViewById(R.id.tabSecondLayout)
+//        viewPager = view.findViewById(R.id.viewPagerSmall)
+//        TabPageAdapter adapter = new TabPageAdapter(getchildFragmentManager());
+//          }
+
+
+
         private fun setUpTabBar()
         {
             val adapter = TabPageAdapter2(this, tabSecondLayout.tabCount)
