@@ -1,21 +1,17 @@
 package com.example.alarmclockbasedonweather
 
-import android.net.wifi.rtt.CivicLocationKeys.CITY
 import android.os.AsyncTask
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import java.net.URL
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,12 +20,16 @@ class MainActivity : AppCompatActivity() {
     val API: String = "722ddb33c87d7eaca6217198f1ec38fe"
     var loader: ProgressBar? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpTabBar()
         loader = findViewById<ProgressBar>(R.id.loader)
         weatherTask().execute()
+
+
+
     }
 
     // setting up fragments
@@ -61,22 +61,6 @@ class MainActivity : AppCompatActivity() {
         override fun onPreExecute() {
             super.onPreExecute()
             loader?.visibility= View.VISIBLE
-
-//            var stringVariable: String? = null
-//
-//            var lowercase = stringVariable?.decapitalize()
-//
-//            if (lowercase != null) {
-//
-//            }
-//
-//            lowercase?.let {
-//
-//            }
-
-//            findViewById<ProgressBar>(R.id.loader).visibility = View.VISIBLE
-//            findViewById<RelativeLayout>(R.id.mainContainer).visibility = View.GONE
-//            findViewById<TextView>(R.id.errorText).visibility = View.GONE
         }
 
         override fun doInBackground(vararg p0: String?): String? {

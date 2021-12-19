@@ -49,4 +49,5 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.4.0'
     implementation 'com.jakewharton:butterknife:10.2.3'
     kapt 'com.jakewharton:butterknife-compiler:10.2.3'
+
 }

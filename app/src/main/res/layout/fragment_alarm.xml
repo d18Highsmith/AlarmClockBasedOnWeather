@@ -44,6 +44,38 @@
 
         </com.google.android.material.tabs.TabLayout>
 
+        <TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:id="@+id/timePicker"
+            android:layout_marginTop="150dp"
+            android:timePickerMode="spinner" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="#090"
+            android:textStyle="bold"
+            android:layout_marginTop="100dp"
+            android:id="@+id/timeTextView"
+            android:text="Time: "
+            />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="186dp"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="124dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="202dp"
+            android:text="SET ALARM" />
+
     </RelativeLayout>
 
 </FrameLayout>

@@ -7,7 +7,7 @@ class TabPageAdapter2(activity: AlarmFragment, private val tabCount: Int) : Frag
 {
     override fun getItemCount(): Int = tabCount
 
-    override fun createFragment(position: Int):Fragment
+    override fun createFragment(position: Int): Fragment
     {
         return when(position)
         {
