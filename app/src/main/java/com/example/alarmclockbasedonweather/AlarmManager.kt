@@ -7,10 +7,8 @@ import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import java.util.*
 
-class AlarmManager(var context: Context?) {
+class AlarmManager(var context: Context?, var mHour: Int, var mMin: Int) {
 
-    var mHour = 0
-    var mMin = 0
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)

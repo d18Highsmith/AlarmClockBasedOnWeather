@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TimePicker
 import androidx.viewpager2.widget.ViewPager2
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -22,7 +23,10 @@ class AlarmFragment : Fragment() {
     lateinit var viewPagerSmall: ViewPager2
     @BindView(R.id.button)
     lateinit var myButton: Button
-
+    @BindView(R.id.timePicker)
+    lateinit var myTimePicker: TimePicker
+    var mHour = 0
+    var mMin = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +42,10 @@ class AlarmFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setUpTabBar()
+        myTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
+            mHour = hourOfDay
+            mMin = minute
+        }
     }
 
     private fun setUpTabBar() {
@@ -63,7 +71,7 @@ class AlarmFragment : Fragment() {
 
     @OnClick(R.id.button)
      fun createAlarm(v: View) {
-         val alarmManager = AlarmManager(context)
+         val alarmManager = AlarmManager(context, mHour, mMin)
          alarmManager.setTimer()
      }
 
