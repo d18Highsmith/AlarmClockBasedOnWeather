@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TimePicker
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -16,6 +18,9 @@ import com.google.android.material.tabs.TabLayout
 
 
 class AlarmFragment : Fragment() {
+
+    var currentCustomSound: Int = R.raw.alarm1
+
 
     @BindView(R.id.tabSecondLayout)
     lateinit var tabSecondLayout: TabLayout
@@ -33,10 +38,18 @@ class AlarmFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_alarm, container, false)
         ButterKnife.bind(this, view)
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val viewModel = ViewModelProvider(requireActivity()).get(SoundViewModel::class.java)
+        currentCustomSound = viewModel.currentSound.value ?: R.raw.alarm1
+        viewModel.currentSound.observe(viewLifecycleOwner, Observer { newSound ->
+            currentCustomSound = newSound
+        })
     }
 
     override fun onStart() {
@@ -68,11 +81,14 @@ class AlarmFragment : Fragment() {
         })
     }
 
+    //This is the value we want to share between the two fragments
+
+
 
     @OnClick(R.id.button)
      fun createAlarm(v: View) {
          val alarmManager = AlarmManager(context, mHour, mMin)
-         alarmManager.setTimer()
+         alarmManager.setTimer(currentCustomSound)
      }
 
 }

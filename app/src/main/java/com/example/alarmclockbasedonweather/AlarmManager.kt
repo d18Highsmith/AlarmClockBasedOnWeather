@@ -22,7 +22,7 @@ class AlarmManager(var context: Context?, var mHour: Int, var mMin: Int) {
 //        }
 //    }
 
-    fun setTimer() {
+    fun setTimer(customAlarmSound: Int) {
         val alarmManager = context?.getSystemService(ALARM_SERVICE) as AlarmManager?
         val date = Date()
         val cal_alarm = Calendar.getInstance()
@@ -36,6 +36,7 @@ class AlarmManager(var context: Context?, var mHour: Int, var mMin: Int) {
             cal_alarm.add(Calendar.DATE, 1)
         }
         val i = Intent(context, AlarmBroadcastReceiver::class.java)
+        i.putExtra(CUSTOM_ALARM_SOUND, customAlarmSound)
         val pendingIntent = PendingIntent.getBroadcast(context, 24444, i, 0)
         alarmManager?.set(AlarmManager.RTC_WAKEUP, cal_alarm.timeInMillis, pendingIntent)
     }

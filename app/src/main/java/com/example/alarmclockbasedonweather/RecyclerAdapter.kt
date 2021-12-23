@@ -11,10 +11,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerAdapter(val myList: ArrayList<Alarm>, var context: Context): RecyclerView.Adapter<CustomViewHolder>() {
+class RecyclerAdapter(val myList: ArrayList<Alarm>, var context: Context, var customSoundInterface: CustomSoundInterface): RecyclerView.Adapter<CustomViewHolder>() {
 
     var myMediaPlayer: MediaPlayer? = null
 
+    interface CustomSoundInterface {
+        fun setCustomSound(customSound: Int)
+    }
+
+//    var customSoundInterface: CustomSoundInterface? = null
 
     override fun getItemCount(): Int {
         return myList.size
@@ -38,6 +43,8 @@ class RecyclerAdapter(val myList: ArrayList<Alarm>, var context: Context): Recyc
                         myMediaPlayer?.stop()
                          myMediaPlayer = MediaPlayer.create(context, currentAlarm.sound)
                         myMediaPlayer?.start()
+
+                        customSoundInterface.setCustomSound(currentAlarm.sound)
             }
         })
     }

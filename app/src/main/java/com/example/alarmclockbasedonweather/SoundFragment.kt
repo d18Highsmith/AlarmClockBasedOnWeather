@@ -5,15 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_sound.*
 import kotlinx.android.synthetic.main.fragment_sound.view.*
 
-class SoundFragment : Fragment() {
+class SoundFragment : Fragment(), RecyclerAdapter.CustomSoundInterface {
 
-//    private var layoutManager: RecyclerView.LayoutManager? = null
-//    private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
+    var viewModel: SoundViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,40 +31,22 @@ class SoundFragment : Fragment() {
 
         view.recyclerView.layoutManager = LinearLayoutManager(activity)
         context?.let {
-            view.recyclerView.adapter = RecyclerAdapter(myList, it)
+            view.recyclerView.adapter = RecyclerAdapter(myList, it, this)
         }
-
-
         return view
-    }}
-//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)chaptersList.add(“Android MVP Introduction”)
-//        chaptersList.add(“Learn RxJava”)
-//        chaptersList.add(“Advance Kotlin”)layoutManager = LinearLayoutManager(this)
-//        rvChapterList.layoutManager = layoutManager
-//        rvChapterList.adapter = ChapterAdapter(this, chaptersList)
-//    }
-//}
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(SoundViewModel::class.java)
+    }
 
+    //This is the value we want to share between the two fragments
+   // var currentCustomSound: Int = 0
 
-//       layoutManager = LinearLayoutManager(this.context)
-//        recyclerView.layoutManager = layoutManager
-//        adapter = RecyclerAdapter()
-//        recyclerView.adapter = adapter
+    override fun setCustomSound(customSound: Int) {
+        viewModel?.setSound(customSound)
+       // currentCustomSound = customSound
+    }
 
-
-//        val recyclerview = findViewById<RecyclerView>(R.id.recyclerView)
-//
-//        recyclerview.layoutManager = LinearLayoutManager(this)
-//
-//        val data = ArrayList<ItemsViewModel>()
-//
-//        val adapter = RecyclerAdapter(data)
-//
-//        recyclerview.adapter = adapter
-//
-//        return inflater.inflate(R.layout.fragment_sound, container, false)
-
+}
