@@ -9,86 +9,57 @@
         tools:context=".TempFragment"
         android:visibility="visible">
 
+
         <EditText
-            android:id="@+id/Type_time"
+            android:id="@+id/noneText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
+
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="43dp"
-            android:layout_marginEnd="216dp"
-            android:layout_marginBottom="280dp"
-            android:hint="@string/enter_time"
-            android:inputType="time" />
+            android:layout_marginEnd="31dp"
+            android:hint="Delay in Min"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:layout_marginBottom="82dp" />
 
-    <EditText
-        android:layout_width="119dp"
+        <Button
+        android:id="@+id/button2"
+        android:layout_width="194dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="224dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="277dp"
-        android:hint="am/pm" />
-
-    <EditText
-            android:id="@+id/noneText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="108dp"
-            android:layout_marginEnd="96dp"
-            android:layout_marginBottom="112dp"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:layout_centerHorizontal="true"
-            android:hint="Alarm delay length" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="194dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="106dp"
-            android:layout_marginEnd="110dp"
-            android:layout_marginBottom="38dp"
-            android:layout_centerHorizontal="true"
-            android:text="Add Alarm Condition" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="105dp"
+        android:layout_marginEnd="111dp"
+        android:layout_marginBottom="22dp"
+        android:text="Add Alarm Condition" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="376dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="97dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="11dp"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:text="If temp is colder than below value" />
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="11dp"
+        android:text="If temp is colder than below value"
+        android:textAlignment="center" />
 
     <EditText
         android:id="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_width="221dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="95dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginBottom="174dp"
-        android:textAlignment="center"
-        android:hint="Enter Fahrenheit" />
+        android:layout_marginStart="31dp"
+        android:layout_marginBottom="81dp"
+        android:hint="Temp in \u2103"
+        android:inputType="number"
+        android:textAlignment="center" />
 
 </RelativeLayout>
 
