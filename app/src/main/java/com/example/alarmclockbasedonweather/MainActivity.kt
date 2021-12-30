@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONObject
 import java.net.URL
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         setUpTabBar()
         loader = findViewById<ProgressBar>(R.id.loader)
         weatherTask().execute()
+
 
 
 
@@ -81,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 val jsonObj = JSONObject(result)
                 val main = jsonObj.getJSONObject("main")
-                val temp = main.getString("temp") + "°C"
+                var temp = main.getString("temp") + "°C"
 
                 findViewById<ProgressBar>(R.id.loader).visibility = View.GONE
                 findViewById<RelativeLayout>(R.id.mainContainer).visibility = View.VISIBLE
@@ -92,6 +94,7 @@ class MainActivity : AppCompatActivity() {
                 findViewById<TextView>(R.id.errorText).visibility = View.VISIBLE
             }
         }
+
 
 
     }
