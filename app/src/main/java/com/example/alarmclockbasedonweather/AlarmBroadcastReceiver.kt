@@ -18,7 +18,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         customAlarmSound = intent.getIntExtra(CUSTOM_ALARM_SOUND, 0)
-
+//call api get temp, take temp caompare to user temp criteria, if temp fits send, else set new alarm with delay
         val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         vibrator.vibrate(2000)
         val noti = Notification.Builder(context)

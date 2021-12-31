@@ -6,11 +6,13 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONObject
 import java.net.URL
 
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     val CITY: String = "dhaka,bd"
     val API: String = "722ddb33c87d7eaca6217198f1ec38fe"
     var loader: ProgressBar? = null
+    val viewModelTemperature: TempViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +31,12 @@ class MainActivity : AppCompatActivity() {
         setUpTabBar()
         loader = findViewById<ProgressBar>(R.id.loader)
         weatherTask().execute()
+
+
+//        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//            super.onViewCreated(view, savedInstanceState)
+//            viewModel = ViewModelProvider(requireActivity()).get(SoundViewModel::class.java)
+//        }
 
 
 
@@ -89,6 +98,10 @@ class MainActivity : AppCompatActivity() {
                 findViewById<RelativeLayout>(R.id.mainContainer).visibility = View.VISIBLE
                 findViewById<TextView>(R.id.temp).text = temp
 
+                var tempFloat = main.getString("temp").toFloat()
+                setCurrentTemp(tempFloat)
+
+
             } catch (e: java.lang.Exception) {
                 findViewById<ProgressBar>(R.id.loader).visibility = View.GONE
                 findViewById<TextView>(R.id.errorText).visibility = View.VISIBLE
@@ -97,6 +110,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+     fun setCurrentTemp(currentTemp: Float) {
+        viewModelTemperature.setTemp(currentTemp)
     }
 }
 

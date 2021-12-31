@@ -10,11 +10,11 @@ import android.widget.EditText
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
-import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class TempFragment : Fragment() {
 
+    var currentTemp: Int = 0
 
     @BindView(R.id.textView)
     lateinit var tempEditText: EditText
@@ -30,9 +30,11 @@ class TempFragment : Fragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Toast.makeText(context, "toast ${temp}", Toast.LENGTH_LONG).show()
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        Toast.makeText(context, "toast ${temp}", Toast.LENGTH_LONG).show()
 
-    }
+
+
+//    }
 }

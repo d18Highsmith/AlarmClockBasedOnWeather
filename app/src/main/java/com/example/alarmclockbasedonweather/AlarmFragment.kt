@@ -20,6 +20,7 @@ import com.google.android.material.tabs.TabLayout
 class AlarmFragment : Fragment() {
 
     var currentCustomSound: Int = R.raw.alarm1
+    var currentTemp: Float = 0.00f
 
 
     @BindView(R.id.tabSecondLayout)
@@ -32,6 +33,7 @@ class AlarmFragment : Fragment() {
     lateinit var myTimePicker: TimePicker
     var mHour = 0
     var mMin = 0
+    var tempSelected = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +51,11 @@ class AlarmFragment : Fragment() {
         currentCustomSound = viewModel.currentSound.value ?: R.raw.alarm1
         viewModel.currentSound.observe(viewLifecycleOwner, Observer { newSound ->
             currentCustomSound = newSound
+        })
+
+        val viewModelTemp = ViewModelProvider(requireActivity()).get(TempViewModel::class.java)
+        viewModelTemp.currentTemp.observe(viewLifecycleOwner, Observer { newTemp ->
+            currentTemp = newTemp
         })
     }
 
@@ -68,6 +75,12 @@ class AlarmFragment : Fragment() {
         viewPagerSmall.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 tabSecondLayout.selectTab(tabSecondLayout.getTabAt(position))
+                if (position == 1){
+                    tempSelected = true
+                }
+                else{
+                    tempSelected = false
+                }
             }
         })
 
@@ -87,8 +100,15 @@ class AlarmFragment : Fragment() {
 
     @OnClick(R.id.button)
      fun createAlarm(v: View) {
-         val alarmManager = AlarmManager(context, mHour, mMin)
-         alarmManager.setTimer(currentCustomSound)
+        if (tempSelected){
+            val alarmManager = AlarmManager(context, mHour, mMin)
+            alarmManager.setTimer(currentCustomSound, currentTemp)
+
+        }
+        else {
+            val alarmManager = AlarmManager(context, mHour, mMin)
+            alarmManager.setTimer(currentCustomSound)
+        }
      }
 
 }
