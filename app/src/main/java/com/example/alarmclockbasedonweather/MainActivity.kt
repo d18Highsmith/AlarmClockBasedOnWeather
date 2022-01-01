@@ -24,25 +24,13 @@ class MainActivity : AppCompatActivity() {
     var loader: ProgressBar? = null
     val viewModelTemperature: TempViewModel by viewModels()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpTabBar()
         loader = findViewById<ProgressBar>(R.id.loader)
         weatherTask().execute()
-
-
-//        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//            super.onViewCreated(view, savedInstanceState)
-//            viewModel = ViewModelProvider(requireActivity()).get(SoundViewModel::class.java)
-//        }
-
-
-
-
     }
-
     // setting up fragments
     private fun setUpTabBar() {
         val adapter = TabPageAdapter(this, tabLayout.tabCount)
@@ -58,14 +46,10 @@ class MainActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager.currentItem = tab.position
             }
-
             override fun onTabUnselected(p0: TabLayout.Tab?) {}
             override fun onTabReselected(p0: TabLayout.Tab?) {}
-
         })
-
     }
-
 
     //getting API working
     inner class weatherTask() : AsyncTask<String, Void, String>() {
@@ -86,18 +70,15 @@ class MainActivity : AppCompatActivity() {
             return response
         }
 
-
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             try {
                 val jsonObj = JSONObject(result)
                 val main = jsonObj.getJSONObject("main")
                 var temp = main.getString("temp") + "°C"
-
                 findViewById<ProgressBar>(R.id.loader).visibility = View.GONE
                 findViewById<RelativeLayout>(R.id.mainContainer).visibility = View.VISIBLE
                 findViewById<TextView>(R.id.temp).text = temp
-
                 var tempFloat = main.getString("temp").toFloat()
                 setCurrentTemp(tempFloat)
 
@@ -107,8 +88,6 @@ class MainActivity : AppCompatActivity() {
                 findViewById<TextView>(R.id.errorText).visibility = View.VISIBLE
             }
         }
-
-
 
     }
      fun setCurrentTemp(currentTemp: Float) {
