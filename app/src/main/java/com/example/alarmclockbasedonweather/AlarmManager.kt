@@ -9,7 +9,9 @@ import java.util.*
 
 class AlarmManager(var context: Context?, var mHour: Int, var mMin: Int) {
 
-    fun setTimer(customAlarmSound: Int, realTemp: Float) {
+
+
+    fun setTimer(customAlarmSound: Int, selectedTemp: Float) {
         val alarmManager = context?.getSystemService(ALARM_SERVICE) as AlarmManager?
         val date = Date()
         val cal_alarm = Calendar.getInstance()
@@ -26,6 +28,8 @@ class AlarmManager(var context: Context?, var mHour: Int, var mMin: Int) {
         //will have to put a time delay somewhere here
         val i = Intent(context, AlarmBroadcastReceiver::class.java)
         i.putExtra(CUSTOM_ALARM_SOUND, customAlarmSound)
+        i.putExtra(SELECTED_TIME_DELAY, 2)
+        i.putExtra(USER_TEMP, selectedTemp)
         val pendingIntent = PendingIntent.getBroadcast(context, 24444, i, 0)
         alarmManager?.set(AlarmManager.RTC_WAKEUP, cal_alarm.timeInMillis, pendingIntent)
     }

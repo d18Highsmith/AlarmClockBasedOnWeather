@@ -8,15 +8,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import butterknife.BindView
 import butterknife.ButterKnife
+import java.lang.Exception
 
 
 class TempFragment : Fragment() {
 
-    var currentTemp: Int = 0
+    var currentTemp: Float = 0F
+    var tempViewModel: TempViewModel? = null
+    var timeDelay: Int = 0
 
-    @BindView(R.id.textView)
+    @BindView(R.id.tempEditText)
     lateinit var tempEditText: EditText
     @BindView(R.id.noneText)
     lateinit var minEditText: EditText
@@ -30,11 +34,19 @@ class TempFragment : Fragment() {
         return view
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        Toast.makeText(context, "toast ${temp}", Toast.LENGTH_LONG).show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        tempViewModel = ViewModelProvider(requireActivity()).get(TempViewModel::class.java)
 
+        addConditionButton.setOnClickListener() {
 
-//    }
+            try {
+                currentTemp = tempEditText.text.toString().toFloat()
+                tempViewModel?.setSelectedTemp(currentTemp)
+            } catch (e: Exception) {
+                Toast.makeText(context, " user input error", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 }

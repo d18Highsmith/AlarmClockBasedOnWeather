@@ -54,7 +54,7 @@ class AlarmFragment : Fragment() {
         })
 
         val viewModelTemp = ViewModelProvider(requireActivity()).get(TempViewModel::class.java)
-        viewModelTemp.currentTemp.observe(viewLifecycleOwner, Observer { newTemp ->
+        viewModelTemp.selectedTemp.observe(viewLifecycleOwner, Observer { newTemp ->
             currentTemp = newTemp
         })
     }

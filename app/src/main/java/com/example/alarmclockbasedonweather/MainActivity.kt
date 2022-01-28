@@ -8,8 +8,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     val API: String = "722ddb33c87d7eaca6217198f1ec38fe"
     var loader: ProgressBar? = null
     val viewModelTemperature: TempViewModel by viewModels()
+    val viewModelTimeDelay: DelayViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +80,8 @@ class MainActivity : AppCompatActivity() {
                 findViewById<TextView>(R.id.temp).text = temp
                 var tempFloat = main.getString("temp").toFloat()
                 setCurrentTemp(tempFloat)
+                var timeDelay = 0
+                setTimeDelay(timeDelay)
 
 
             } catch (e: java.lang.Exception) {
@@ -91,7 +92,10 @@ class MainActivity : AppCompatActivity() {
 
     }
      fun setCurrentTemp(currentTemp: Float) {
-        viewModelTemperature.setTemp(currentTemp)
+        viewModelTemperature.setCurrentTemp(currentTemp)
+    }
+    fun setTimeDelay(timeDelay: Int){
+        viewModelTimeDelay.setTimeDelay(timeDelay)
     }
 }
 

@@ -18,18 +18,26 @@ import android.widget.Toast
 import org.json.JSONObject
 import java.net.URL
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 
 const val CUSTOM_ALARM_SOUND = "customAlarmSound"
+const val SELECTED_TIME_DELAY = "timeDelay"
+const val USER_TEMP = "selectedTemp"
 val CITY: String = "dhaka,bd"
 val API: String = "722ddb33c87d7eaca6217198f1ec38fe"
+var hasStartedSecondAlarm = false
 
 class AlarmBroadcastReceiver : BroadcastReceiver() {
 
     var customAlarmSound = 0
     var context: Context? = null
+    var mHour: Int = 0
+    var mMin: Int = 0
+    var timeDelay: Int = 0
+    var selectedTemp: Float = 0F
 
-     inner class callAPI() : AsyncTask<String, Void, String>() {
+     inner class callAPIForTemp() : AsyncTask<String, Void, String>() {
         override fun onPreExecute() {
             super.onPreExecute()
         }
@@ -53,9 +61,22 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
                 val main = jsonObj.getJSONObject("main")
                 val tempFloat = main.getString("temp").toFloat()
                 println(tempFloat)
-
-                val alarmManager = AlarmManager(context, 14, 11)
-                alarmManager.setTimer(customAlarmSound)
+                val time = LocalTime.now()
+                println(time)
+                mHour = time.hour
+                mMin = time.minute + timeDelay
+                if(mMin >= 60) {
+                    mHour + 1
+                    mMin - 60
+                }
+                print(mHour)
+                print (mMin)
+                if (selectedTemp > tempFloat && !hasStartedSecondAlarm)  {
+                    hasStartedSecondAlarm = true
+                    createSecondAlarm()
+                } else {
+                    playAlarm()
+                }
             } catch (e: java.lang.Exception) {
                 println(e)
             }
@@ -64,20 +85,35 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         this.context = context
-        callAPI().execute()
-//        customAlarmSound = intent.getIntExtra(CUSTOM_ALARM_SOUND, 0)
-////call api get temp, take temp caompare to user temp criteria, if temp fits send, else set new alarm with delay
-//        val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-//        vibrator.vibrate(2000)
-//        val noti = Notification.Builder(context)
-//            .setContentTitle("Alarm is ON")
-//            .setContentText("You had set up the alarm")
-//            .setSmallIcon(R.mipmap.ic_launcher).build()
-//        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//        noti.flags = noti.flags or Notification.FLAG_AUTO_CANCEL
-//        manager.notify(0, noti)
-//        val path: Uri = Uri.parse("android.resource://" + context.packageName + "/" + customAlarmSound)
-//        val r = RingtoneManager.getRingtone(context, path)
-//        r.play()
+
+        customAlarmSound = intent.getIntExtra(CUSTOM_ALARM_SOUND, 0)
+        timeDelay = intent.getIntExtra(SELECTED_TIME_DELAY, 0)
+        selectedTemp = intent.getFloatExtra(USER_TEMP, 0F)
+
+        callAPIForTemp().execute()
+
+
+    }
+
+    fun playAlarm(){
+        val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        vibrator.vibrate(2000)
+        val noti = Notification.Builder(context)
+            .setContentTitle("Alarm is ON")
+            .setContentText("You had set up the alarm")
+            .setSmallIcon(R.mipmap.ic_launcher).build()
+        val manager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        noti.flags = noti.flags or Notification.FLAG_AUTO_CANCEL
+        manager.notify(0, noti)
+        val path: Uri = Uri.parse("android.resource://" + context?.packageName + "/" + customAlarmSound)
+        val r = RingtoneManager.getRingtone(context, path)
+        r.play()
+    }
+
+    fun createSecondAlarm(){
+        val alarmManager = AlarmManager(context, mHour, mMin)
+        alarmManager.setTimer(customAlarmSound)
     }
 }
+
+

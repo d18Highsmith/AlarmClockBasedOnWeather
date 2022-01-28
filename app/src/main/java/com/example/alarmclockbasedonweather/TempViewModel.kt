@@ -5,8 +5,14 @@ import androidx.lifecycle.ViewModel
 
 class TempViewModel : ViewModel(){
 
+    val selectedTemp = MutableLiveData<Float>()
     val currentTemp = MutableLiveData<Float>()
-    fun setTemp(newTemp: Float) {
+
+    fun setSelectedTemp(newTemp: Float) {
+        selectedTemp.value = newTemp
+    }
+
+    fun setCurrentTemp(newTemp: Float) {
         currentTemp.value = newTemp
     }
 
