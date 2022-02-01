@@ -19,6 +19,7 @@ class TempFragment : Fragment() {
     var currentTemp: Float = 0F
     var tempViewModel: TempViewModel? = null
     var timeDelay: Int = 0
+    var delayViewModel: DelayViewModel? = null
 
     @BindView(R.id.tempEditText)
     lateinit var tempEditText: EditText
@@ -44,9 +45,13 @@ class TempFragment : Fragment() {
             try {
                 currentTemp = tempEditText.text.toString().toFloat()
                 tempViewModel?.setSelectedTemp(currentTemp)
+                timeDelay = minEditText.text.toString().toInt()
+                delayViewModel?.setTimeDelay(timeDelay)
             } catch (e: Exception) {
                 Toast.makeText(context, " user input error", Toast.LENGTH_LONG).show()
             }
         }
+
+        delayViewModel = ViewModelProvider(requireActivity()).get(DelayViewModel::class.java)
     }
 }

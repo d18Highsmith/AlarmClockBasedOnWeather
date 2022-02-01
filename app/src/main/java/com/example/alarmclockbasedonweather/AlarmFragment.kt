@@ -21,6 +21,7 @@ class AlarmFragment : Fragment() {
 
     var currentCustomSound: Int = R.raw.alarm1
     var currentTemp: Float = 0.00f
+    var selectedDelay: Int = 0
 
 
     @BindView(R.id.tabSecondLayout)
@@ -56,6 +57,11 @@ class AlarmFragment : Fragment() {
         val viewModelTemp = ViewModelProvider(requireActivity()).get(TempViewModel::class.java)
         viewModelTemp.selectedTemp.observe(viewLifecycleOwner, Observer { newTemp ->
             currentTemp = newTemp
+        })
+
+        val viewModelDelay = ViewModelProvider(requireActivity()).get(DelayViewModel::class.java)
+        viewModelDelay.timeDelay.observe(viewLifecycleOwner, Observer { newTimeDelay ->
+            selectedDelay = newTimeDelay
         })
     }
 
@@ -102,7 +108,7 @@ class AlarmFragment : Fragment() {
      fun createAlarm(v: View) {
         if (tempSelected){
             val alarmManager = AlarmManager(context, mHour, mMin)
-            alarmManager.setTimer(currentCustomSound, currentTemp)
+            alarmManager.setTimer(currentCustomSound, currentTemp, selectedDelay)
 
         }
         else {
