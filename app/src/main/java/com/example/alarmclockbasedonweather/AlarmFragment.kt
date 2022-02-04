@@ -22,6 +22,9 @@ class AlarmFragment : Fragment() {
     var currentCustomSound: Int = R.raw.alarm1
     var currentTemp: Float = 0.00f
     var selectedDelay: Int = 0
+    var rainBoolean: Boolean = false
+    var snowBoolean: Boolean = false
+
 
 
     @BindView(R.id.tabSecondLayout)
@@ -63,6 +66,14 @@ class AlarmFragment : Fragment() {
         viewModelDelay.timeDelay.observe(viewLifecycleOwner, Observer { newTimeDelay ->
             selectedDelay = newTimeDelay
         })
+        val weatherViewModel = ViewModelProvider(requireActivity()).get(WeatherViewModel::class.java)
+        weatherViewModel.rain.observe(viewLifecycleOwner, Observer { newWeatherCheckRain ->
+            rainBoolean = newWeatherCheckRain
+        })
+        weatherViewModel.snow.observe(viewLifecycleOwner, Observer { newWeatherCheckSnow ->
+            snowBoolean = newWeatherCheckSnow
+        })
+
     }
 
     override fun onStart() {
@@ -106,13 +117,12 @@ class AlarmFragment : Fragment() {
 
     @OnClick(R.id.button)
      fun createAlarm(v: View) {
+        val alarmManager = AlarmManager(context, mHour, mMin)
         if (tempSelected){
-            val alarmManager = AlarmManager(context, mHour, mMin)
             alarmManager.setTimer(currentCustomSound, currentTemp, selectedDelay)
-
-        }
-        else {
-            val alarmManager = AlarmManager(context, mHour, mMin)
+        }else if (rainBoolean || snowBoolean){
+            alarmManager.setTimer(currentCustomSound, selectedDelay, rainBoolean, snowBoolean)
+        } else {
             alarmManager.setTimer(currentCustomSound)
         }
      }
