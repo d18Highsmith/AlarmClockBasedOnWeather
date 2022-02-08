@@ -17,7 +17,10 @@ import java.net.URL
 
 class MainActivity : AppCompatActivity() {
 
-    val CITY: String = "dhaka,bd"
+//    val CITY: String = "SaintLouis"
+//    val STATE: String = "Missouri"
+    val ZIPCODE: String = "63110"
+    val COUNTRY: String ="US"
     val API: String = "722ddb33c87d7eaca6217198f1ec38fe"
     var loader: ProgressBar? = null
     val viewModelTemperature: TempViewModel by viewModels()
@@ -61,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             var response: String?
             try {
                 response =
-                    URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API")
+                    URL("https://api.openweathermap.org/data/2.5/weather?zip=$ZIPCODE,$COUNTRY&appid=$API")
                         .readText(Charsets.UTF_8)
             } catch (e: Exception) {
                 response = null

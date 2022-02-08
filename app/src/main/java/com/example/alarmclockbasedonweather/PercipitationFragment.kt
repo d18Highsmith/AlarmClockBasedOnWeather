@@ -48,6 +48,7 @@ class PercipitationFragment : Fragment() {
             try {
                 timeDelay = lengthText.text.toString().toInt()
                 delayViewModel?.setTimeDelay(timeDelay)
+                Toast.makeText(context, "condition set", Toast.LENGTH_SHORT).show()
                 weatherViewModel?.setRain(rainSwitch.isChecked)
                 weatherViewModel?.setSnow(snowSwitch.isChecked)
             } catch (e: Exception) {

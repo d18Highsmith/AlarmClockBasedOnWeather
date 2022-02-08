@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import butterknife.BindView
 import butterknife.ButterKnife
+import kotlinx.android.synthetic.main.fragment_percipitation.*
 import java.lang.Exception
 
 
@@ -45,6 +46,7 @@ class TempFragment : Fragment() {
             try {
                 currentTemp = tempEditText.text.toString().toFloat()
                 tempViewModel?.setSelectedTemp(currentTemp)
+                Toast.makeText(context, "condition set", Toast.LENGTH_SHORT).show()
                 timeDelay = minEditText.text.toString().toInt()
                 delayViewModel?.setTimeDelay(timeDelay)
             } catch (e: Exception) {

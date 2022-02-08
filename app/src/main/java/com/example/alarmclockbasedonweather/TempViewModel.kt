@@ -8,6 +8,7 @@ class TempViewModel : ViewModel(){
     val selectedTemp = MutableLiveData<Float>()
     val currentTemp = MutableLiveData<Float>()
 
+
     fun setSelectedTemp(newTemp: Float) {
         selectedTemp.value = newTemp
     }

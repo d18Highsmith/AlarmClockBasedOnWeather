@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -24,6 +25,7 @@ class AlarmFragment : Fragment() {
     var selectedDelay: Int = 0
     var rainBoolean: Boolean = false
     var snowBoolean: Boolean = false
+
 
 
 
@@ -120,10 +122,13 @@ class AlarmFragment : Fragment() {
         val alarmManager = AlarmManager(context, mHour, mMin)
         if (tempSelected){
             alarmManager.setTimer(currentCustomSound, currentTemp, selectedDelay)
+            Toast.makeText(context, "Alarm Set", Toast.LENGTH_SHORT).show()
         }else if (rainBoolean || snowBoolean){
             alarmManager.setTimer(currentCustomSound, selectedDelay, rainBoolean, snowBoolean)
+            Toast.makeText(context, "Alarm Set", Toast.LENGTH_SHORT).show()
         } else {
             alarmManager.setTimer(currentCustomSound)
+            Toast.makeText(context, "Alarm set", Toast.LENGTH_SHORT).show()
         }
      }
 

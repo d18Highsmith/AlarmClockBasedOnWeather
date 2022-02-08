@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerAdapter(val myList: ArrayList<Alarm>, var context: Context, var customSoundInterface: CustomSoundInterface): RecyclerView.Adapter<CustomViewHolder>() {
@@ -45,6 +46,7 @@ class RecyclerAdapter(val myList: ArrayList<Alarm>, var context: Context, var cu
                         myMediaPlayer?.start()
 
                         customSoundInterface.setCustomSound(currentAlarm.sound)
+                        Toast.makeText(context, "Sound Selected", Toast.LENGTH_SHORT).show()
             }
         })
     }

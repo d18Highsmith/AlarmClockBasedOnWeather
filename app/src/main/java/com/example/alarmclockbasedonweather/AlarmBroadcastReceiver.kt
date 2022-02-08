@@ -20,7 +20,8 @@ const val USER_TEMP = "selectedTemp"
 const val IS_TEMP_ALARM = "isTempAlarm"
 const val IS_RAIN_ALARM = "isRainAlarm"
 const val IS_SNOW_ALARM = "isSnowAlarm"
-val CITY: String = "dhaka,bd"
+val ZIPCODE: String = "63110"
+val COUNTRY: String ="US"
 val API: String = "722ddb33c87d7eaca6217198f1ec38fe"
 var hasStartedSecondAlarm = false
 var hasStartedSecondWeatherAlarm = false
@@ -35,6 +36,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
     var selectedTemp: Float = 0F
     var isRainAlarm = false
     var isSnowAlarm = false
+    var temperatureAlarm = false
 
 
      inner class callAPIForTemp() : AsyncTask<String, Void, String>() {
@@ -46,7 +48,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
             var response: String?
             try {
                 response =
-                    URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API")
+                    URL("https://api.openweathermap.org/data/2.5/weather?zip=$ZIPCODE,$COUNTRY&appid=$API")
                         .readText(Charsets.UTF_8)
             } catch (e: Exception) {
                 response = null
@@ -89,7 +91,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
             var response: String?
             try {
                 response =
-                    URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API")
+                    URL("https://api.openweathermap.org/data/2.5/weather?zip=$ZIPCODE,$COUNTRY&appid=$API")
                         .readText(Charsets.UTF_8)
             } catch (e: Exception) {
                 response = null
@@ -117,7 +119,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
                     }
                     hasStartedSecondWeatherAlarm = true
                     createSecondAlarm()
-                } else if (weatherType == "Haze" && isSnowAlarm && !hasStartedSecondWeatherAlarm ){
+                } else if (weatherType == "Snow" && isSnowAlarm && !hasStartedSecondWeatherAlarm ){
 
                     val time = LocalTime.now()
                     mHour = time.hour
@@ -144,11 +146,11 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
         customAlarmSound = intent.getIntExtra(CUSTOM_ALARM_SOUND, 0)
         timeDelay = intent.getIntExtra(SELECTED_TIME_DELAY, 0)
         selectedTemp = intent.getFloatExtra(USER_TEMP, 0F)
-        val tempuratureAlarm =intent.getBooleanExtra(IS_TEMP_ALARM, false)
+        temperatureAlarm =intent.getBooleanExtra(IS_TEMP_ALARM, false)
         isRainAlarm = intent.getBooleanExtra(IS_RAIN_ALARM, false)
         isSnowAlarm = intent.getBooleanExtra(IS_SNOW_ALARM, false)
 
-        if (tempuratureAlarm){
+        if (selectedTemp > 0){
             callAPIForTemp().execute()
         }else if(isRainAlarm || isSnowAlarm){
             callAPIForWeather().execute()
