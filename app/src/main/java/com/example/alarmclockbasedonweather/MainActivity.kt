@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
 //    val CITY: String = "SaintLouis"
 //    val STATE: String = "Missouri"
-    val ZIPCODE: String = "63110"
+    val ZIPCODE: String = "63021"
     val COUNTRY: String ="US"
     val API: String = "722ddb33c87d7eaca6217198f1ec38fe"
     var loader: ProgressBar? = null
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             var response: String?
             try {
                 response =
-                    URL("https://api.openweathermap.org/data/2.5/weather?zip=$ZIPCODE,$COUNTRY&appid=$API")
+                    URL("https://api.openweathermap.org/data/2.5/weather?zip=$ZIPCODE,$COUNTRY&appid=$API&units=imperial")
                         .readText(Charsets.UTF_8)
             } catch (e: Exception) {
                 response = null
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 val jsonObj = JSONObject(result)
                 val main = jsonObj.getJSONObject("main")
-                var temp = main.getString("temp") + "°C"
+                var temp = main.getString("temp") + "°F"
                 findViewById<ProgressBar>(R.id.loader).visibility = View.GONE
                 findViewById<RelativeLayout>(R.id.mainContainer).visibility = View.VISIBLE
                 findViewById<TextView>(R.id.temp).text = temp

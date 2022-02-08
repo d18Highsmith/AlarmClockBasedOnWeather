@@ -20,7 +20,7 @@ const val USER_TEMP = "selectedTemp"
 const val IS_TEMP_ALARM = "isTempAlarm"
 const val IS_RAIN_ALARM = "isRainAlarm"
 const val IS_SNOW_ALARM = "isSnowAlarm"
-val ZIPCODE: String = "63110"
+val ZIPCODE: String = "63021"
 val COUNTRY: String ="US"
 val API: String = "722ddb33c87d7eaca6217198f1ec38fe"
 var hasStartedSecondAlarm = false
@@ -48,7 +48,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
             var response: String?
             try {
                 response =
-                    URL("https://api.openweathermap.org/data/2.5/weather?zip=$ZIPCODE,$COUNTRY&appid=$API")
+                    URL("https://api.openweathermap.org/data/2.5/weather?zip=$ZIPCODE,$COUNTRY&appid=$API&units=imperial")
                         .readText(Charsets.UTF_8)
             } catch (e: Exception) {
                 response = null

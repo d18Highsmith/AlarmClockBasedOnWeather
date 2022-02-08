@@ -56,7 +56,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="31dp"
         android:layout_marginBottom="81dp"
-        android:hint="Temp in \u2103"
+        android:hint="Temp in \u2109"
         android:inputType="number"
         android:textAlignment="center" />
 
